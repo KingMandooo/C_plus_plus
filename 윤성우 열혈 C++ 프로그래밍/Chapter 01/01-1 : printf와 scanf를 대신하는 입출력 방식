@@ -83,3 +83,97 @@ int main()
 
 	return 0;
 }
+
+
+-------------------------------------------------------------------------
+
+🟠 문제1
+
+#include <iostream>
+
+int main()
+{
+	int sum = 0;
+
+	for (int i = 0; i < 5; i++)
+	{
+		int num;
+		std::cout << i + 1 << "번째 정수 입력: ";
+		std::cin >> num;
+
+		sum += num;
+	}
+
+	std::cout << "합: " << sum << '\n';    // 이런식으로 std::endl 대신 개행문자를 사용해도 된다.
+
+	return 0;
+}
+
+
+🟠 문제2
+
+#include <iostream>
+
+int main()
+{
+	char name[30], phoneNum[30];
+
+	std::cout << "이름 입력: ";
+	std::cin >> name;
+	
+	std::cout << "전화번호 입력: ";
+	std::cin >> phoneNum;
+
+	std::cout << "이름: " << name << std::endl;
+	std::cout << "전화번호: " << phoneNum << std::endl;
+
+	return 0;
+}
+
+
+🟠 문제3
+
+#include <iostream>
+
+int main()
+{
+	int dan;
+
+	std::cout << "원하는 단 입력: ";
+	std::cin >> dan;
+
+	for (int i = 1; i <= 9; i++)
+	{
+		int result = dan * i;
+
+		std::cout << dan << " * " << i << " = " << result << std::endl;
+	}
+
+	return 0;
+}
+
+
+🟠 문제4
+
+#include <iostream>
+
+int main()
+{
+	while (true)
+	{
+		int value;
+
+		std::cout << "판매 금액을 만언 단위로 입력(-1 to end): ";
+		std::cin >> value;
+	
+		if (value == -1)
+		{
+			std::cout << "프로그램을 종료합니다\n";
+			return 0;
+		}
+
+		std::cout << "이번 달 급여: " << 50 + value * 0.12 << "만원" << std::endl;
+	}
+
+	return 0;
+}
