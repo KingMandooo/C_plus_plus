@@ -107,16 +107,91 @@ int func(int a = 5, int b = 300)
                          만약 이때 b와 c에 디폴트 값이 지정되어 있지 않으면, 매개변수에 값이 들어가지 못하게 된다.
 
 
+---------------------------------------------------------------
+#include <iostream>
+
+int BoxVolume(int length, int width = 1, int height = 1);
+
+int main()
+{
+	std::cout << "[3, 3, 3] : " << BoxVolume(3, 3, 3) << std::endl;
+	std::cout << "[5, 5, D] : " << BoxVolume(5, 5) << std::endl;
+	std::cout << "[7, D, D] : " << BoxVolume(7) << std::endl;
+	
+	//std::cout << "[D, D D] : " << BoxVolume() << std::endl;  <-- 에러
+
+	return 0;
+}
+
+int BoxVolume(int length, int width, int height)
+{
+	return length * width * height;
+}
 
 
 
+/*
+출력결과: [3, 3, 3] : 27
+	  [5, 5, D] : 25
+	  [7, D, D] : 7
+*/
+---------------------------------------------------------------
+
+🟠 문제1
+
+#include <iostream>
+
+int BoxVolume(int length, int width, int height);
+int BoxVolume(int length, int width);
+int BoxVolume(int length);
+
+int main()
+{
+	std::cout << "[3, 3, 3] : " << BoxVolume(3, 3, 3) << std::endl;
+	std::cout << "[5, 5, D] : " << BoxVolume(5, 5) << std::endl;
+	std::cout << "[7, D, D] : " << BoxVolume(7) << std::endl;
+
+	return 0;
+}
+
+int BoxVolume(int length, int width, int height)
+{
+	return length * width * height;
+}
+
+int BoxVolume(int width, int height)
+{
+	return width * height;
+}
+
+int BoxVolume(int length)
+{
+	return length;
+}
 
 
+🟠 문제2
 
+int SimpleFunc(int a = 10) 
+{
+ 	return a + 1;
+}
 
+int SimpleFunc(void)
+{
+	return 10;
+}                               
+                      Q.이와 같은 형태로의 함수 오버로딩의 문제는 무엇인가?
 
-
-
-
-
-
+                      A. 만약 함수호출을 SimpleFunc()와 같이 한다면 이때 문제가 발생하게 된다.
+			 
+			 매개변수의 디폴트 값이 이미 설정되어 있는 경우에는 인자를 넘기는 과정을 생략할 수 있다.
+			 이는 오버로딩된 두 함수의 매개변수를 넘겨주는 방식과 겹칠 수 있게 된다.
+			      
+			 SimpleFunc()와 같이 함수를 호출할 경우,
+			 결국 두 함수 모두 호출조건을 만족하기 때문에 컴파일 에러가 발생한다.
+			      
+			      
+			      
+			      
+			      
