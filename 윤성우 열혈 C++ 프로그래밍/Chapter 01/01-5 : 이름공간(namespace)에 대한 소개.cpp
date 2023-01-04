@@ -241,7 +241,67 @@ int main()
 	return 0;
 }
        
+-----------------------------------
+🟢 namespace의 별칭 지정
+  
+                         --> namespace가 중첩되면서까지 과도하게 사용되는 경우.
+	
+#include <iostream>
 
+using namespace std;
+
+namespace AA
+{
+	namespace BB
+	{
+		namespace CC
+		{
+			int num1;
+			int num2;
+		}
+	}
+}
+
+int main()
+{
+	AA::BB::CC::num1 = 5;
+	AA::BB::CC::num2 = 12;
+
+	cout << AA::BB::CC::num1 << '\n';
+	cout << AA::BB::CC::num2 << '\n';
+
+	namespace ABC = AA::BB::CC;       // ✅ AA::BB::CC에 ABC라는 별칭을 붙여준다.
+
+	cout << ABC::num1 << '\n';
+	cout << ABC::num2 << '\n';
+
+	return 0;
+}
+
+-----------------------------------
+	
+🟢 :: 의 또 다른 기능 (New !) 
+
+#include <iostream>
+
+using namespace std;
+
+int a = 50;
+
+int main()
+{
+	int a = 100;
+
+	a = 999;
+
+	cout << "지역변수 a : " << a << endl;
+
+	::a++;   // ✅ 전역변수 a에 접근
+
+	cout << "전역변수 a : " << ::a << endl;
+
+	return 0;
+}
 
 
 
