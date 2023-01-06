@@ -129,7 +129,7 @@ int main()
 }
 
 
-🟠 문제 3 
+🟠 문제 3  ❌
 
 #include <iostream>
 using namespace std;
