@@ -32,7 +32,7 @@ int main()
 ---------------------------------------------------------------------
 
 
-🟠 문제 1
+🟠 문제 02-4(1)
                                           
 #include <iostream>
 #include <cstring>
@@ -66,7 +66,7 @@ int main()
 */
 
 
-🟠 문제 2
+🟠 문제 02-4(2)
   
 #include <iostream>
 #include <cstdlib>
@@ -85,10 +85,5 @@ int main()
 
 	return 0;
 }
-  
-  
-  
-  
-  
   
   
