@@ -130,25 +130,78 @@ int main()
        🎈🎈 캡슐화에는 정보은닉이 기본적으로 포함된다.
             캡슐화는 감싸는 개념이다. 이왕이면 멤버변수가 보이지 않게 정보를 은닉해서 감싸는 것이 좋다.
                                                   
-                                                  
-                                                  
-                                                  
 ----------------------------------------------------------------
 
 🟠 문제 04-2
                                                   
+#include <iostream>
+#include <cMath>
+using namespace std;
+
+class Point
+{
+private:
+	int xpos, ypos;
+public:
+	void Init(int x, int y)
+	{
+		xpos = x;
+		ypos = y;
+	}
+
+	void ShowPointInfo() const
+	{
+		cout << "[" << xpos << ", " << ypos << "]" << endl;
+	}
+};
+
+class Circle
+{
+private:
+	Point point;
+	int radius;
+public:
+	void Init(int x, int y, int r)
+	{
+		point.Init(x, y);
+		radius = r;
+	}
+
+	void ShowCircleInfo() const
+	{
+		cout << "radius: " << radius << endl;
+		point.ShowPointInfo();
+	}
+};
+
+class Ring
+{
+private:
+	Circle c1;
+	Circle c2;
+public:
+	void Init(int x1, int y1, int r1, int x2, int y2, int r2)
+	{
+		c1.Init(x1, y1, r1);
+		c2.Init(x2, y2, r2);
+	}
+
+	void ShowRingInfo() const
+	{
+		cout << "Innder Circle Info..." << endl;
+		c1.ShowCircleInfo();
+
+		cout << "Outter Circle Info..." << endl;
+		c2.ShowCircleInfo();
+	}
+};
+
+int main()
+{
+	Ring ring;
+	ring.Init(1, 1, 4, 2, 2, 9);
+	ring.ShowRingInfo();
+
+	return 0;
+}                                               
                                                   
-                                                  
-                                                  
-                                                  
-                                                  
-                                                  
-                                                  
-                                                  
-                                                  
-                                                  
-                                                  
-                                                  
-                                                  
-                                                  
- 
