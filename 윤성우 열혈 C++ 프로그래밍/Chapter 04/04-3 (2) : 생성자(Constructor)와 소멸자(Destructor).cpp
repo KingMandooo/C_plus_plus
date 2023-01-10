@@ -138,3 +138,91 @@ int main()
 
 	return 0;
 }
+
+
+
+
+🟠 문제 04-3(2)
+
+#include <iostream>
+#include <cstring>
+using namespace std;
+
+//enum COMP_POS { CLERK, SENIOR, ASSIST, MANAGER };    난 이렇게 했는디
+
+namespace COMP_POS
+{
+	enum { CLERK, SENIOR, ASSIST, MANAGER };
+
+	void ShowPositionInfo(int pos)
+	{
+		switch (pos)
+		{
+		case CLERK: 
+			cout << "사원" << endl << endl;
+			break;
+		case SENIOR:
+			cout << "주임" << endl << endl;
+			break;
+		case ASSIST:
+			cout << "대리" << endl << endl;
+			break;
+		case MANAGER:
+			cout << "과장" << endl << endl;
+			break;
+		}
+	}
+}
+
+class NameCard
+{
+private:
+	char* name;
+	char* company_name;
+	char* phone_number;
+	int rank;
+
+public:
+	NameCard(const char *N, const char*CN, const char*PN, int r) : rank(r)
+	{
+		int len = strlen(N) + 1;
+		name = new char[len];     
+		strcpy(name, N);
+
+		len = strlen(CN) + 1;
+		company_name = new char[len];
+		strcpy(company_name, CN);
+
+		len = strlen(PN) + 1;
+		phone_number = new char[len];
+		strcpy(phone_number, PN);
+	}
+
+	void ShowNameCardInfo()
+	{
+		cout << "이름: " << name << endl;
+		cout << "회사: " << company_name << endl;
+		cout << "전화번호: " << phone_number << endl;
+		cout << "직급: ";
+		COMP_POS::ShowPositionInfo(rank);
+	}
+
+	~NameCard()               // 소멸자를 사용해서 동적할당한 메모리를 알아서 해제해주는 거 잊지말기
+	{
+		delete[] name;
+		delete[] company_name;
+		delete[] phone_number;
+	}
+};
+
+int main()
+{
+	NameCard manClerk("Lee", "ABCEng", "010-1111-2222", COMP_POS::CLERK);
+	NameCard manSENIOR("Hong", "OrangeEng", "010-3333-4444", COMP_POS::SENIOR);
+	NameCard manAssist("Kim", "SoGoodComp", "010-5555-6666", COMP_POS::ASSIST);
+	manClerk.ShowNameCardInfo();
+	manSENIOR.ShowNameCardInfo();
+	manAssist.ShowNameCardInfo();
+
+	return 0;
+}
