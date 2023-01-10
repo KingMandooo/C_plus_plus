@@ -82,7 +82,7 @@ using namespace std;
 
 class FruitSeller              
 {
-private:
+private: 
 	int APPLE_PRICE;
 	int numOfApples;
 	int myMoney;
