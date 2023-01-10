@@ -75,3 +75,66 @@ int main()
 
 */
 
+
+--------------------------------------------------------
+	
+🟠 문제 04-3(1)
+	
+#include <iostream>
+using namespace std;
+
+class Point
+{
+private:
+	int xpos, ypos;
+public:
+	Point(int x, int y) : xpos(x), ypos(y) {}     // Point 생성자
+
+	void ShowPointInfo() const
+	{
+		cout << "[" << xpos << ", " << ypos << "]" << endl;
+	}
+};
+
+class Circle
+{
+private:
+	Point point;
+	int radius;
+public:
+	Circle(int x, int y, int r) : point(x, y), radius(r) {}   // Circle 생성자
+
+	void ShowCircleInfo() const
+	{
+		cout << "radius: " << radius << endl;
+		point.ShowPointInfo();
+	}
+};
+
+class Ring
+{
+private:
+	Circle c1;
+	Circle c2;
+public:
+	Ring(int x1, int y1, int r1, int x2, int y2, int r2) : c1(x1, y1, r1), c2(x2, y2, r2) {}  // Ring 생성자
+
+	void ShowRingInfo() const
+	{
+		cout << "Innder Circle Info..." << endl;
+		c1.ShowCircleInfo();
+
+		cout << "Outter Circle Info..." << endl;
+		c2.ShowCircleInfo();
+	}
+};
+
+int main()
+{
+	Ring* ring = new Ring(1, 1, 4, 2, 2, 9);
+	ring->ShowRingInfo();
+
+	delete ring;
+
+	return 0;
+}
