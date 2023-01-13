@@ -81,12 +81,12 @@ int main()
 
     ✔ case 3
     SoSimple SimpleFuncObj(SoSimple ob)  // 당연히 여기서 또한, SoSimple ob = obj; 라는 문장으로 할당과 동시에 초기화 !
-     {
-       return ob;    // 반환하는 순간 메모리 공간이 할당되면서 동시에 초기화 !
-     }
-     int main()
-     {
-       SoSimple obj;
-       SoSimple obj2 = SimpleFuncObj(obj);
-     }
+    {
+      return ob;    // 반환하는 순간 메모리 공간이 할당되면서 동시에 초기화 !
+    }
+    int main()
+    {
+      SoSimple obj;
+      SoSimple obj2 = SimpleFuncObj(obj);
+    }
 
