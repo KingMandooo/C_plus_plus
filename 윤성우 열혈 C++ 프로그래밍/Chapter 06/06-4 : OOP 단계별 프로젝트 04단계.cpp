@@ -66,7 +66,7 @@ Account* accArr[100];
 
 int main()
 {
-	int choice;
+	int choice; 
 
 	while (true)
 	{
