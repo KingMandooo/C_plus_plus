@@ -242,7 +242,14 @@ public:
 
   --> const static 멤버변수는, 클래스가 정의될 때 지정된 값이 유지되는 상수이기 때문에, 
       아래의 예제처럼 초기화가 가능하다.
+	      
+      ✅왜 const static 멤버변수는 class 내부에서 초기화가 가능한걸까..
+	      
+        --> 일반 static 멤버변수는 값이 변경이 가능하기에 전역변수와 같은 느낌이라 밖에서 초기화를 해주고,
+            const static은 클래스가 정의될 때 계속해서 그 값을 유지하기 때문에 class 안에서 초기화가 가능한걸까??
 
+		    
+		    
 #include <iostream>
 using namespace std;
 
