@@ -31,7 +31,7 @@ class EmployeeHandler    // 고용자들 정보 들어가 있는 클래스
 {                                           
 private: 
 	PermanentWorker* empList[50];                //🎈🎈 EmployeeHandler 클래스와 같이 기능의 처리를 실제로 담당하는 클래스를 가리켜
-	int empNum;                                         '컨트롤(control) 클래스' 또는 '핸들러(handler) 클래스'라 한다.
+	int empNum;                                  //     '컨트롤(control) 클래스' 또는 '핸들러(handler) 클래스'라 한다.
 public:
 	EmployeeHandler() : empNum(0) {}
 
