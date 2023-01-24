@@ -156,4 +156,6 @@ int main()
 	             이는 Lvalue와 Rvalue라는 C++의 개념이 있기 때문이다.
 			     
 	             이에 대한 설명은 : https://effort4137.tistory.com/entry/Lvalue-Rvalue
+                                       https://m.blog.naver.com/luku756/221808884092
+                                       https://stackoverflow.com/questions/58840973/why-is-i-invalid-while-i-is-valid
 
