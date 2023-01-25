@@ -500,3 +500,105 @@ int main()
 
 
 🟠 문제 11-1(2)
+
+#include <iostream>
+#include <cstring>
+using namespace std;
+
+class Book
+{
+private:
+	char* title;  // 책 제목
+	char* isbn;   // 국제표준도서번호
+	int price;    // 책의 정가
+public:
+	Book(char* title, char* isbn, int price) : price(price)
+	{
+		this->title = new char[strlen(title) + 1];
+		strcpy(this->title, title);
+
+		this->isbn = new char[strlen(isbn) + 1];
+		strcpy(this->isbn, isbn);
+	}
+	Book(Book& copy) : price(copy.price)
+	{
+		title = new char[strlen(copy.title) + 1];
+		strcpy(title, copy.title);
+
+		isbn = new char[strlen(copy.isbn) + 1];
+		strcpy(isbn, copy.isbn);
+	}
+	Book operator=(Book& ref)
+	{
+		delete[] title;
+		delete[] isbn;
+		title = new char[strlen(ref.title) + 1];
+		strcpy(title, ref.title);
+
+		isbn = new char[strlen(ref.isbn) + 1];
+		strcpy(isbn, ref.isbn);
+
+		price = ref.price;
+
+		return *this;
+	}
+	void ShowBookInfo()
+	{
+		cout << "제목: " << title << endl;
+		cout << "ISBN: " << isbn << endl;
+		cout << "가격: " << price << endl;
+	}
+	~Book()
+	{
+		delete[] title;
+		delete[] isbn;
+	}
+};
+
+class EBook : public Book
+{
+private:
+	char* DRMKey;  // 보완관련 키
+public:
+	EBook(char* title, char* isbn, int price, char* DRMKey) : Book(title, isbn, price)
+	{
+		this->DRMKey = new char[strlen(DRMKey) + 1];
+		strcpy(this->DRMKey, DRMKey);
+	}
+	EBook(EBook& copy) : Book(copy)
+	{
+		DRMKey = new char[strlen(copy.DRMKey) + 1];
+		strcpy(DRMKey, copy.DRMKey);
+	}
+	EBook operator=(EBook& ref)
+	{
+		Book::operator=(ref);
+		delete[] DRMKey;
+		DRMKey = new char[strlen(ref.DRMKey) + 1];
+		strcpy(DRMKey, ref.DRMKey);
+
+		return *this;
+	}
+	void ShowEBookInfo()
+	{
+		ShowBookInfo();
+		cout << "인증키: " << DRMKey << endl;
+	}
+	~EBook()
+	{
+		delete[] DRMKey;
+	}
+};
+
+int main()
+{
+	EBook ebook1("좋은 C++ ebook", "555-12345-890-1", 10000, "fdx9wi8kiw");
+	//EBook ebook2 = ebook1;
+
+	EBook ebook2("나폴레옹", "335-12345-890-1", 7000, "AA9cwi8sc5w");
+	ebook2 = ebook1;  // ebook.operator=(ebook1);
+
+	ebook2.ShowEBookInfo();
+
+	return 0;
+}
