@@ -30,7 +30,7 @@ public:
 	}
 	Point(Point& ref) : xpos(ref.xpos), ypos(ref.ypos)
 	{
-		cout << "복사생성자 호출" << endl;
+		cout << "복사생성자 호출" << endl; 
 	}
 	Point& operator=(Point& ref)          // ✅ cout를 사용한줄을 빼면 디폴트 대입연산자는 이렇게 정의되어있다.
 	{
