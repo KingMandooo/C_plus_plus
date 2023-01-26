@@ -177,7 +177,7 @@ void ShowAllData(const BoundCheckIntArray& ref)
 
 int main()                        // ✅ 그러나, const를 추가해도 배열을 멤버로 선언하는 경우에는 저장 자체가 불가능해지기 때문에 
 {                                 //     좋은 방법이라고 할 수 없다.  👈👈 뭔 말이지????????
-	BoundCheckIntArray arr(5);
+	BoundCheckIntArray arr(5);                                      // https://www.acmicpc.net/board/view/78189
 	for (int i = 0; i < 5; i++)
 		arr[i] = (i + 1) * 11;
 
