@@ -175,12 +175,12 @@ void ShowAllData(const BoundCheckIntArray& ref)
                                   // 따라서 호출할 함수가 없기 때문에 오류가 발생한다.
 }
 
-int main()                        // ✅ 그러나, const를 추가해도 배열을 멤버로 선언하는 경우에는 저장 자체가 불가능해지기 때문에 
-{                                 //     좋은 방법이라고 할 수 없다.  👈👈 뭔 말이지????????
+int main()                        // 🎈🎈 그러나, const를 추가해도 배열을 멤버로 선언하는 경우에는 저장 자체가 불가능해지기 때문에 
+{                                 //      좋은 방법이라고 할 수 없다.  👈👈 뭔 말이지????????
 	BoundCheckIntArray arr(5);                                      // https://www.acmicpc.net/board/view/78189
 	for (int i = 0; i < 5; i++)
-		arr[i] = (i + 1) * 11;
-
+		arr[i] = (i + 1) * 11;                                // ✅ 위의 궁금증에 대한 답은 아래에 내가 코드로 설명을 해놨다!!!!!!!
+ 
 	ShowAllData(arr);
 
 	return 0;
@@ -242,3 +242,39 @@ int main()
 
 	return 0;
 }
+
+--------------------------------------------------------
+
+ ✅ 도대체 const 참조형 함수에서 멤버변수가 반환이 안되는지 이해가 안됐는데, 이제 이해됐다.
+	
+class StudyHard
+{
+private:
+	int v;
+public:
+	int& aa() const
+	{
+		cout << v << endl;
+		return v;  // const 함수내에서는 멤버변수 v 또한 const 형임.
+
+		// 반환형이 참조형이면.
+		// const int num1 = 3;
+		// int& num2 = num1;      <---  이렇게하면 컴파일 에러가 발생한다.
+
+		// 따라서 에러를 없애주기 위해서는
+		// const int& num2 = num1;  <---  이렇게 선언해줘야 한다.
+
+		// 자! 이제 다시 함수로 돌아와서 코드를 자세히 봐보면
+		// 현재 int& aa() 의 반환값은 일반 참조형이다.
+		// 그런데 이 함수는 const 함수이므로 함수 내의 멤버는 const형으로 바뀐다. (현재 멤버변수 v가 const형)
+		// 그런데 만약 이 반환값을 받을 참조형이 
+		// 예를 들어 int& b = aa(); 라면
+		// const의 기본원리가 파괴되는 현상이 일어난다. (aa의 반환값이 const 이기 때문에..)
+		
+		// 그니까 애초에 C++ 이러한 모순을 막기 위해서 컴파일 오류를 발생하는 것이다.
+		// 만약 const v를 반환하고 싶다면,
+		// int& aa() 앞에 const를 붙여서 const int& 형을 반환해야할 것이다.
+		
+		// const int& aa() { ... } <-- 이렇게 말이다.
+	}
+};
