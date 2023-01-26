@@ -602,3 +602,194 @@ int main()
 
 	return 0;
 }
+----------------------------------------------------------------------------------------------------
+	
+🟠 문제 11-1(1) 복습
+	
+#include <iostream>
+#include <cstring>                          
+using namespace std;
+
+class gun
+{
+private:
+	int bullet;
+public:
+	gun(int bnum) : bullet(bnum) {}
+	void shot()
+	{
+		cout << "bbang!" << endl;
+		bullet--;
+	}
+};
+
+class police      
+{
+private:
+	int handcuffs;
+	gun* pistol;
+public:
+	police(int bnum, int bcuff) : handcuffs(bcuff)
+	{
+		if (bnum > 0)
+			pistol = new gun(bnum);
+		else
+			pistol = null;
+	}
+	// 깊은 참조를 위한 복사생성자
+	police(police& copy) : handcuffs(copy.handcuffs)
+	{
+		pistol = new gun(*(copy.pistol));
+	}
+	// 깊은 참조를 위한 대입 연산자
+	police& operator=(police& ref)
+	{
+		delete[] pistol;
+		pistol = new gun(*(ref.pistol));
+		handcuffs = ref.handcuffs;
+		return *this;
+	}
+	void puthandcuff()
+	{
+		cout << "snap!" << endl;
+		handcuffs--;
+	}
+	void shot()
+	{
+		if (pistol == null)
+			cout << "no gun!!" << endl;
+		else
+			pistol->shot();
+	}
+	~police()
+	{
+		if (pistol != null)
+			delete pistol;
+	}
+};
+
+int main()
+{
+	police pman1(5, 3);
+	police pman2 = pman1;
+	police pman3(10, 7);
+	pman2 = pman3;
+
+	pman2.shot();
+	pman2.puthandcuff();
+
+	return 0;
+}
+
+
+
+🟠 문제 11-1(2) 복습	
+
+#include <iostream>
+#include <cstring>
+using namespace std;
+
+class Book
+{
+private:
+	char* title;  // 책 제목
+	char* isbn;   // 국제표준도서번호
+	int price;    // 책의 정가
+public:
+	Book(char* title, char* isbn, int price) : price(price)
+	{
+		this->title = new char[strlen(title) + 1];
+		strcpy(this->title, title);
+
+		this->isbn = new char[strlen(isbn) + 1];
+		strcpy(this->isbn, isbn);
+	}
+	Book(Book& copy) : price(copy.price)
+	{
+		title = new char[strlen(copy.title) + 1];
+		strcpy(title, copy.title);
+
+		isbn = new char[strlen(copy.isbn) + 1];
+		strcpy(isbn, copy.isbn);
+	}
+	Book& operator=(Book& ref)
+	{
+		delete[] title;
+		delete[] isbn;
+
+		title = new char[strlen(ref.title) + 1];
+		strcpy(title, ref.title);
+
+		isbn = new char[strlen(ref.isbn) + 1];
+		strcpy(isbn, ref.isbn);
+
+		price = ref.price;
+		return *this;
+	}
+	void ShowBookInfo()
+	{
+		cout << "제목: " << title << endl;
+		cout << "ISBN: " << isbn << endl;
+		cout << "가격: " << price << endl;
+	}
+	~Book()
+	{
+		delete[] title;
+		delete[] isbn;
+	}
+};
+
+class EBook : public Book
+{
+private:
+	char* DRMKey;  // 보완관련 키
+public:
+	EBook(char* title, char* isbn, int price, char* DRMKey) : Book(title, isbn, price)
+	{
+		this->DRMKey = new char[strlen(DRMKey) + 1];
+		strcpy(this->DRMKey, DRMKey);
+	}
+	EBook(EBook& copy) : Book(copy)
+	{
+		DRMKey = new char[strlen(copy.DRMKey) + 1];
+		strcpy(DRMKey, copy.DRMKey);
+	}
+	/*
+	EBook 클래스에만 복사생성자를 만들어놓면 "Book 클래스의 기본 생성자가 없다"라는 오류가 뜬다.
+	무슨 뜻일까?
+
+	--> 그냥 기초 클래스 Book의 멤버도 초기화를 해달라는 뜻.
+	*/
+	EBook& operator=(EBook& ref)
+	{
+		Book::operator=(ref);
+		delete[] DRMKey;
+		DRMKey = new char[strlen(ref.DRMKey) + 1];
+		strcpy(DRMKey, ref.DRMKey);
+		return *this;
+	}
+	void ShowEBookInfo()
+	{
+		ShowBookInfo();
+		cout << "인증키: " << DRMKey << endl;
+	}
+	~EBook()
+	{
+		delete[] DRMKey;
+	}
+};
+
+int main()
+{
+	EBook ebook1("좋은 C++ ebook", "555-12345-890-1", 10000, "fdx9wi8kiw");
+
+	EBook ebook2 = ebook1;
+	ebook2.ShowEBookInfo();
+
+	EBook ebook3("좋은 Python ebook", "666-125145-890-1", 12000, "as9wi8kiw");
+	ebook3 = ebook1;
+	ebook3.ShowEBookInfo();
+
+
+	return 0;
+}
