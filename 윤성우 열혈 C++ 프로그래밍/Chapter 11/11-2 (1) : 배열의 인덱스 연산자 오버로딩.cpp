@@ -280,3 +280,40 @@ public:
 		// const int& aa() { ... } <-- 이렇게 말이다.
 	}
 };
+
+-----------------
+ ✅  private 변수에 이렇게 접근이 가능하네..?? (내가 짠 코드)
+	
+#include <iostream>
+using namespace std;
+
+class StudyHard
+{
+private:
+	int v;
+public:
+	StudyHard(int v) :v(v) {}
+	int& aa() 
+	{
+		cout << "v: " << v << endl;
+		return v; 
+	}
+	void ShowV()
+	{
+		cout << "v: " << v << endl;
+	}
+};
+
+int main()
+{
+	StudyHard bb(3);
+	int& num = bb.aa();    
+	num = 100;
+	bb.ShowV();
+	return 0;
+}
+
+/*
+  출력결과:     v: 3
+		v: 100
+*/
