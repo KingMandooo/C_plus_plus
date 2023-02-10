@@ -32,7 +32,7 @@ public:
 	}
 	String operator+(const String& copy)
 	{
-		char* s = new char[strlen(arr) + strlen(copy.arr) + 1];
+		char* s = new char[strlen(arr) + strlen(copy.arr) + 1];  // 이부분에서 널문자 계산 잘못해서 오래걸림.. (처음에 -1 이라고했음)
 		strcpy(s, arr);
 		strcat(s, copy.arr);
 
