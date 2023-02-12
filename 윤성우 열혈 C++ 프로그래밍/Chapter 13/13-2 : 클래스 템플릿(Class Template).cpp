@@ -165,4 +165,63 @@ int main()
 		   
 고로 우선 책으로만 읽었다.
 		   
+-------------------------------------------------------
 		   
+🟠 문제 13-2
+		   
+#include <iostream>
+using namespace std;
+
+class Point
+{
+private:
+	int xpos, ypos;
+public:
+	Point(int x, int y) : xpos(x), ypos(y) {}
+	void SetPos(int x, int y)
+	{
+		xpos = x;
+		ypos = y;
+	}
+	void ShowPosition() const
+	{
+		cout << '[' << xpos << ", " << ypos << ']' << endl;
+	}
+};
+
+template <class T>
+class SmartPtr
+{
+private:
+	T* posptr;
+public:
+	SmartPtr(T* ptr) : posptr(ptr) {}
+	T& operator*() const
+	{
+		return *posptr;
+	}
+	T* operator->() const
+	{
+		return posptr;
+	}
+	~SmartPtr()
+	{
+		delete posptr;
+	}
+};
+
+int main()
+{
+	SmartPtr<Point> sptr1(new Point(1, 2));
+	SmartPtr<Point> sptr2(new Point(3, 4));
+	sptr1->ShowPosition();
+	sptr2->ShowPosition();
+
+	sptr1->SetPos(10, 20);
+	sptr2->SetPos(30, 40);
+	sptr1->ShowPosition();
+	sptr2->ShowPosition();
+
+	return 0;
+}
+
