@@ -134,7 +134,7 @@ void Divide(int num1, int num2)
 	{
 		cout << "first catch" << endl;
 		cout << expn << endl;
-		throw;
+		throw;                   //🎈🎈 예외를 다시 던진다! 
 	}
 }
 
