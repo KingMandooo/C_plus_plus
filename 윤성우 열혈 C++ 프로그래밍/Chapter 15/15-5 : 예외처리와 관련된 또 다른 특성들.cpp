@@ -114,6 +114,9 @@ int main()
 
 🟢 예외 던지기
 
+--> 예외처리는 가급적 간결한 구조를 띠는게 좋다.
+    따라서 정말로 필요한 상황이 아니라면, 굳이 예외를 다시 던지기 위해서 노력할 필요는 없다.
+
 #include <iostream>
 #include <new>
 using namespace std;
